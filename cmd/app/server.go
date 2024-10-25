@@ -2,15 +2,18 @@ package app
 
 import (
 	"net/http"
+
+	"github.com/Yessentemir256/server/pkg/banners"
 )
 
 // Server представляет собой логический сервер нашего приложения.
 type Server struct {
-	mux *http.ServeMux
+	mux        *http.ServeMux
+	bannersSvc *banners.Service
 }
 
 // NewServer - функция-конструктор для создания сервера.
-func NewServer(mux *http.ServeMux) *Server {
+func NewServer(mux *http.ServeMux, bannersSvc *banners.Service) *Server {
 	return &Server{mux: mux}
 }
 
