@@ -1,12 +1,11 @@
 package main
 
 import (
+	"github.com/Yessentemir256/server/cmd/app"
+	"github.com/Yessentemir256/server/pkg/banners"
 	"net"
 	"net/http"
 	"os"
-
-	"github.com/Yessentemir256/server/cmd/app"
-	"github.com/Yessentemir256/server/pkg/banners"
 )
 
 func main() {

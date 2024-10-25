@@ -2,6 +2,7 @@ package banners
 
 import (
 	"context"
+	"errors"
 	"sync"
 )
 
@@ -30,11 +31,6 @@ func (s *Service) All(ctx context.Context) ([]*Banner, error) {
 	panic("not implemented")
 }
 
-// ByID возвращает баннер по идентификатору.
-func (s *Service) ByID(ctx context.Context, id int64) (*Banner, error) {
-	panic("not implemented")
-}
-
 // Save сохраняет/обновляет баннер.
 func (s *Service) Save(ctx context.Context, item *Banner) (*Banner, error) {
 	panic("not implemented")
@@ -43,4 +39,17 @@ func (s *Service) Save(ctx context.Context, item *Banner) (*Banner, error) {
 // RemoveByID удаляет баннер по идентификатору.
 func (s *Service) RemoveByID(ctx context.Context, id int64) (*Banner, error) {
 	panic("not implemented")
+}
+
+// ByID возвращает баннер по идентификатору.
+func (s *Service) ByID(ctx context.Context, id int64) (*Banner, error) {
+	s.mu.RUnlock()
+	defer s.mu.RLock()
+	for _, banner := range s.items {
+		if banner.ID == id {
+			return banner, nil
+		}
+	}
+
+	return nil, errors.New("item not found")
 }
